@@ -1,0 +1,24 @@
+{
+  "name": "ads",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/fzrsahi/Test-Case-ADS-x-MSIB",
+  "author": "fzrsahi",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.6",
+    "nodemon": "^3.0.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "scripts": {
+    "build": "tsc --project ./",
+    "start:dev": "nodemon src/index.ts",
+    "start:prod": "node dist/index.js"
+  }
+}
