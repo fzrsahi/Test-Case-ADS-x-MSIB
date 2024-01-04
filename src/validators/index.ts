@@ -1,1 +1,1 @@
-export * from "./create-product.validator";
+export * from "./product-validator";
