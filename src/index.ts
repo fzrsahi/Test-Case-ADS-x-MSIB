@@ -16,7 +16,6 @@ app.use(
 );
 
 app.use("/api/v1/", routes);
-
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof ValidationError) {
     return res.status(err.statusCode).json(err);

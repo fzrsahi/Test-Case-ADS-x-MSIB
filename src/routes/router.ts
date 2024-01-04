@@ -4,6 +4,7 @@ import {
   deleteCategory,
   deleteProduct,
   getAllCategory,
+  getAllCategoryById,
   getAllProducts,
   getProductById,
   insertCategory,
@@ -13,8 +14,14 @@ import {
   updateProduct,
   uploadAsset,
 } from "../controllers";
-import { createProductValidator } from "./../validators";
+import {
+  createCategoryValidator,
+  createProductValidator,
+  updateCategoryValidator,
+  updateProductValidator,
+} from "./../validators";
 import { validate } from "express-validation";
+import { upload } from "./../utils";
 
 export const routes = Router();
 
@@ -25,14 +32,20 @@ routes.get("/", (req: Request, res: Response) => {
 routes.get("/products", getAllProducts);
 routes.get("/products/:id", getProductById);
 routes.post("/products", validate(createProductValidator), insertProduct);
-routes.patch("/products", updateProduct);
-routes.delete("/products", deleteProduct);
+routes.patch("/products/:id", validate(updateProductValidator), updateProduct);
+routes.delete("/products/:id", deleteProduct);
+routes.post("/products/:id/upload", upload.single("image"), uploadAsset);
+
 
 routes.get("/categories", getAllCategory);
-routes.post("/categories", insertCategory);
-routes.patch("/categories", updateCategory);
-routes.delete("/categories", deleteCategory);
+routes.get("/categories/:id", getAllCategoryById);
+routes.post("/categories", validate(createCategoryValidator), insertCategory);
+routes.patch(
+  "/categories/:id",
+  validate(updateCategoryValidator),
+  updateCategory
+);
+routes.delete("/categories/:id", deleteCategory);
 
-routes.post("/products/asset", uploadAsset);
-routes.patch("/products/asset", updateAsset);
-routes.delete("/products/asset", deleteAsset);
+routes.patch("/products-asset/:id", upload.single("image"), updateAsset);
+routes.delete("/products-asset/:id", deleteAsset);

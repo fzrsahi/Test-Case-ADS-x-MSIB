@@ -13,8 +13,8 @@ datasource db {
 model Product {
   id            Int             @id @default(autoincrement())
   name          String
-  slug          String
-  price         String
+  slug          String          @unique
+  price         Int
   category      Category        @relation(fields: [category_id], references: [id])
   category_id   Int
   Product_Asset Product_Asset[]
@@ -33,9 +33,9 @@ model Category {
 model Product_Asset {
   id Int @id @default(autoincrement())
 
-  product    Product @relation(fields: [product_id], references: [id])
+  product    Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
   product_id Int
-  image      String
+  image      String?
 
   @@map("Product_Assets")
 }
