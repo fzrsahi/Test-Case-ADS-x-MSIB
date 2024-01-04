@@ -1,9 +1,4 @@
-import express, {
-  ErrorRequestHandler,
-  Request,
-  Response,
-  NextFunction,
-} from "express";
+import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import { routes } from "./routes";
 import bodyParser from "body-parser";
