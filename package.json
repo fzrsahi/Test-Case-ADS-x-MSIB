@@ -27,7 +27,8 @@
   },
   "scripts": {
     "build": "tsc --project ./",
+    "start": "yarn build && node dist/index.js",
     "start:dev": "nodemon src/index.ts",
-    "start:prod": "node dist/index.js"
+    "start:prod": "yarn build &&  dist/index.js"
   }
 }
