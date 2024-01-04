@@ -11,3 +11,10 @@ export interface UpdateProductDto {
   category_id?: number;
   slug?: string;
 }
+
+export interface ProductQueryDto {
+  sort?: string;
+  order?: string;
+  limit?: string;
+  page?: number;
+}

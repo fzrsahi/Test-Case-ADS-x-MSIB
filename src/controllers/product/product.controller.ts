@@ -1,11 +1,25 @@
 import { Request, Response } from "express";
-import { CreateProductDto, UpdateProductDto } from "./../../interfaces";
+import {
+  CreateProductDto,
+  ProductQueryDto,
+  UpdateProductDto,
+} from "./../../interfaces";
 import { prisma } from "./../../database";
 import slugify from "slugify";
 import { Prisma, Product } from "@prisma/client";
 
 export async function getAllProducts(req: Request, res: Response) {
+  const query: ProductQueryDto = req.query;
+  const limit = parseInt(query.limit) || 10;
+  const page = query.page || 1;
+  const order: any = query.order || "asc";
+  const skip: number = (page - 1) * limit;
+  const totalCount = await prisma.product.count();
+
+
   const data = await prisma.product.findMany({
+    take: limit,
+    skip,
     include: {
       category: {
         select: {
@@ -13,11 +27,25 @@ export async function getAllProducts(req: Request, res: Response) {
         },
       },
       Product_Asset: true,
+      _count: true,
     },
+    orderBy: [
+      {
+        price: order,
+      },
+    ],
   });
+
+  const totalPage = Math.ceil(totalCount / limit);
+
   return res.json({
     statusCode: 200,
     message: "Success Get All Product!",
+    page,
+    limit,
+    totalPage,
+    length: data.length,
+    totalData: totalCount,
     data,
   });
 }

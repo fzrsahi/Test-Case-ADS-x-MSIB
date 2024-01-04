@@ -99,3 +99,21 @@ export async function deleteAsset(req: Request, res: Response) {
     data,
   });
 }
+
+export async function getAllAssets(req: Request, res: Response) {
+  const data = await prisma.product_Asset.findMany({
+    include: {
+      product: {
+        include: {
+          category: true,
+        },
+      },
+    },
+  });
+
+  return res.status(200).json({
+    statusCode: 200,
+    message: "Success Get All Assets!",
+    data,
+  });
+}

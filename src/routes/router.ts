@@ -3,6 +3,7 @@ import {
   deleteAsset,
   deleteCategory,
   deleteProduct,
+  getAllAssets,
   getAllCategory,
   getAllCategoryById,
   getAllProducts,
@@ -47,5 +48,7 @@ routes.patch(
 );
 routes.delete("/categories/:id", deleteCategory);
 
+
 routes.patch("/products-asset/:id", upload.single("image"), updateAsset);
-routes.delete("/products-asset/:id", deleteAsset);
+routes.patch("/products-asset/:id", upload.single("image"), updateAsset);
+routes.get("/products-asset", getAllAssets);
